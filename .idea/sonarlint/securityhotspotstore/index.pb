@@ -9,3 +9,5 @@ L
 tests/dream-analysis.test.ts,e/f/efeefd1d373ac1bcf18cbdb48d7b9c0e05a2557c
 J
 contracts/dream-world.clar,2/f/2fc6da9a89a627b396cba8d9a92a3828709f4fcd
+I
+tests/dream-world.test.ts,d/d/dd6f656b5fb1b6988b3d06d25d90a34cdbd87a8a
