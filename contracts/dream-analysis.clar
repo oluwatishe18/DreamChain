@@ -9,13 +9,16 @@
 )
 
 (define-public (analyze-dream (dream-id uint) (analysis (string-utf8 1024)) (patterns (list 10 (string-ascii 64))))
-  (ok (map-set dream-analyses
-    { dream-id: dream-id }
-    {
-      analysis: analysis,
-      patterns: patterns
-    }
-  ))
+  (begin
+    (asserts! (is-eq tx-sender (contract-call? .dream-nft get-owner dream-id)) (err u403))
+    (ok (map-set dream-analyses
+      { dream-id: dream-id }
+      {
+        analysis: analysis,
+        patterns: patterns
+      }
+    ))
+  )
 )
 
 (define-read-only (get-dream-analysis (dream-id uint))
