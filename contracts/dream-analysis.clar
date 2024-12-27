@@ -1,30 +1,27 @@
+;; Dream Analysis Contract
 
-;; title: dream-analysis
-;; version:
-;; summary:
-;; description:
+(define-map dream-analyses
+  { dream-id: uint }
+  {
+    analysis: (string-utf8 1024),
+    patterns: (list 10 (string-ascii 64))
+  }
+)
 
-;; traits
-;;
+(define-public (analyze-dream (dream-id uint) (analysis (string-utf8 1024)) (patterns (list 10 (string-ascii 64))))
+  (begin
+    (asserts! (is-eq tx-sender (contract-call? .dream-nft get-owner dream-id)) (err u403))
+    (ok (map-set dream-analyses
+      { dream-id: dream-id }
+      {
+        analysis: analysis,
+        patterns: patterns
+      }
+    ))
+  )
+)
 
-;; token definitions
-;;
-
-;; constants
-;;
-
-;; data vars
-;;
-
-;; data maps
-;;
-
-;; public functions
-;;
-
-;; read only functions
-;;
-
-;; private functions
-;;
+(define-read-only (get-dream-analysis (dream-id uint))
+  (ok (map-get? dream-analyses { dream-id: dream-id }))
+)
 
